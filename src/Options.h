@@ -69,7 +69,6 @@ public:
     inline int algo() const                       { return m_algo; }
     inline int algoVariant() const                { return m_algoVariant; }
     inline int apiPort() const                    { return m_apiPort; }
-    inline int donateLevel() const                { return m_donateLevel; }
     inline int printTime() const                  { return m_printTime; }
     inline int priority() const                   { return m_priority; }
     inline int retries() const                    { return m_retries; }
@@ -120,7 +119,6 @@ private:
     int m_algo;
     int m_algoVariant;
     int m_apiPort;
-    int m_donateLevel;
     int m_maxCpuUsage;
     int m_printTime;
     int m_priority;

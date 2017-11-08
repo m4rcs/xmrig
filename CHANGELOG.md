@@ -1,3 +1,6 @@
+# v2.4.3.1
+ - Removed `donate-level`.
+
 # v2.4.3
  - [#184](https://github.com/xmrig/xmrig/issues/184) Fixed cache size detection for CPUs with disabled Hyper-Threading.
 

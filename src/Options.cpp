@@ -34,7 +34,6 @@
 
 
 #include "Cpu.h"
-#include "donate.h"
 #include "net/Url.h"
 #include "Options.h"
 #include "Platform.h"
@@ -69,7 +68,6 @@ Options:\n\
       --cpu-priority       set process priority (0 idle, 2 normal to 5 highest)\n\
       --no-huge-pages      disable huge pages support\n\
       --no-color           disable colored output\n\
-      --donate-level=N     donate level, default 5%% (5 minutes in 100 minutes)\n\
       --user-agent         set custom user-agent string for pool\n\
   -B, --background         run the miner in the background\n\
   -c, --config=FILE        load a JSON-format configuration file\n\
@@ -101,7 +99,6 @@ static struct option const options[] = {
     { "config",           1, nullptr, 'c'  },
     { "cpu-affinity",     1, nullptr, 1020 },
     { "cpu-priority",     1, nullptr, 1021 },
-    { "donate-level",     1, nullptr, 1003 },
     { "help",             0, nullptr, 'h'  },
     { "keepalive",        0, nullptr ,'k'  },
     { "log-file",         1, nullptr, 'l'  },
@@ -135,7 +132,6 @@ static struct option const config_options[] = {
     { "colors",        0, nullptr, 2000 },
     { "cpu-affinity",  1, nullptr, 1020 },
     { "cpu-priority",  1, nullptr, 1021 },
-    { "donate-level",  1, nullptr, 1003 },
     { "huge-pages",    0, nullptr, 1009 },
     { "log-file",      1, nullptr, 'l'  },
     { "max-cpu-usage", 1, nullptr, 1004 },
@@ -211,7 +207,6 @@ Options::Options(int argc, char **argv) :
     m_algo(0),
     m_algoVariant(0),
     m_apiPort(0),
-    m_donateLevel(kDonateLevel),
     m_maxCpuUsage(75),
     m_printTime(60),
     m_priority(-1),
@@ -367,7 +362,6 @@ bool Options::parseArg(int key, const char *arg)
     case 'r':  /* --retries */
     case 'R':  /* --retry-pause */
     case 'v':  /* --av */
-    case 1003: /* --donate-level */
     case 1004: /* --max-cpu-usage */
     case 1007: /* --print-time */
     case 1021: /* --cpu-priority */
@@ -461,14 +455,6 @@ bool Options::parseArg(int key, uint64_t arg)
         }
 
         m_algoVariant = (int) arg;
-        break;
-
-    case 1003: /* --donate-level */
-        if (arg < 1 || arg > 99) {
-            return true;
-        }
-
-        m_donateLevel = (int) arg;
         break;
 
     case 1004: /* --max-cpu-usage */

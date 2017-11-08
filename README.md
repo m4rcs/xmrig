@@ -64,7 +64,6 @@ For failover you can add multiple pools, maximum count not limited.
       --cpu-priority    set process priority (0 idle, 2 normal to 5 highest)
       --no-huge-pages   disable huge pages support
       --no-color        disable colored output
-      --donate-level=N  donate level, default 5% (5 minutes in 100 minutes)
       --user-agent      set custom user-agent string for pool
   -B, --background      run the miner in the background
   -c, --config=FILE     load a JSON-format configuration file
@@ -94,7 +93,6 @@ Since version 0.8.0.
 ## Other information
 * No HTTP support, only stratum protocol support.
 * No TLS support.
-* Default donation 5% (5 minutes in 100 minutes) can be reduced to 1% via command line option `--donate-level`.
 
 
 ### CPU mining performance
