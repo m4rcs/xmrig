@@ -21,37 +21,34 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __VERSION_H__
-#define __VERSION_H__
 
-#define APP_ID        "xmrig"
-#define APP_NAME      "XMRig"
-#define APP_DESC      "XMRig CPU miner"
-#define APP_VERSION   "2.4.3.2"
-#define APP_DOMAIN    "xmrig.com"
-#define APP_SITE      "www.xmrig.com"
-#define APP_COPYRIGHT "Copyright (C) 2016-2017 xmrig.com"
-#define APP_KIND      "cpu"
+#include <string.h>
 
-#define APP_VER_MAJOR  2
-#define APP_VER_MINOR  4
-#define APP_VER_BUILD  3
-#define APP_VER_REV    2
 
-#ifdef _MSC_VER
-#   if (_MSC_VER == 1910 || _MSC_VER == 1911)
-#       define MSVC_VERSION 2017
-#   elif _MSC_VER == 1900
-#       define MSVC_VERSION 2015
-#   elif _MSC_VER == 1800
-#       define MSVC_VERSION 2013
-#   elif _MSC_VER == 1700
-#       define MSVC_VERSION 2012
-#   elif _MSC_VER == 1600
-#       define MSVC_VERSION 2010
-#   else
-#       define MSVC_VERSION 0
+#include "Cpu.h"
+
+
+char Cpu::m_brand[64]   = { 0 };
+int Cpu::m_flags        = 0;
+int Cpu::m_l2_cache     = 0;
+int Cpu::m_l3_cache     = 0;
+int Cpu::m_sockets      = 1;
+int Cpu::m_totalCores   = 0;
+int Cpu::m_totalThreads = 0;
+
+
+int Cpu::optimalThreadsCount(int algo, bool doubleHash, int maxCpuUsage)
+{
+    return m_totalThreads;
+}
+
+
+void Cpu::initCommon()
+{
+    memcpy(m_brand, "Unknown", 7);
+
+#   if defined(XMRIG_ARMv8)
+    m_flags |= X86_64;
+    m_flags |= AES;
 #   endif
-#endif
-
-#endif /* __VERSION_H__ */
+}

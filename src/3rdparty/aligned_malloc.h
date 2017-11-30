@@ -21,37 +21,45 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __VERSION_H__
-#define __VERSION_H__
+#ifndef __ALIGNED_MALLOC_H__
+#define __ALIGNED_MALLOC_H__
 
-#define APP_ID        "xmrig"
-#define APP_NAME      "XMRig"
-#define APP_DESC      "XMRig CPU miner"
-#define APP_VERSION   "2.4.3.2"
-#define APP_DOMAIN    "xmrig.com"
-#define APP_SITE      "www.xmrig.com"
-#define APP_COPYRIGHT "Copyright (C) 2016-2017 xmrig.com"
-#define APP_KIND      "cpu"
 
-#define APP_VER_MAJOR  2
-#define APP_VER_MINOR  4
-#define APP_VER_BUILD  3
-#define APP_VER_REV    2
+#include <stdlib.h>
 
-#ifdef _MSC_VER
-#   if (_MSC_VER == 1910 || _MSC_VER == 1911)
-#       define MSVC_VERSION 2017
-#   elif _MSC_VER == 1900
-#       define MSVC_VERSION 2015
-#   elif _MSC_VER == 1800
-#       define MSVC_VERSION 2013
-#   elif _MSC_VER == 1700
-#       define MSVC_VERSION 2012
-#   elif _MSC_VER == 1600
-#       define MSVC_VERSION 2010
-#   else
-#       define MSVC_VERSION 0
-#   endif
+
+#ifndef __cplusplus
+extern int posix_memalign(void **__memptr, size_t __alignment, size_t __size);
+#else
+// Some systems (e.g. those with GNU libc) declare posix_memalign with an
+// exception specifier. Via an "egregious workaround" in
+// Sema::CheckEquivalentExceptionSpec, Clang accepts the following as a valid
+// redeclaration of glibc's declaration.
+extern "C" int posix_memalign(void **__memptr, size_t __alignment, size_t __size);
 #endif
 
-#endif /* __VERSION_H__ */
+
+static __inline__ void *__attribute__((__always_inline__, __malloc__)) _mm_malloc(size_t __size, size_t __align)
+{
+  if (__align == 1) {
+    return malloc(__size);
+  }
+
+  if (!(__align & (__align - 1)) && __align < sizeof(void *))
+    __align = sizeof(void *);
+
+  void *__mallocedMemory;
+  if (posix_memalign(&__mallocedMemory, __align, __size)) {
+    return 0;
+  }
+
+  return __mallocedMemory;
+}
+
+
+static __inline__ void __attribute__((__always_inline__)) _mm_free(void *__p)
+{
+  free(__p);
+}
+
+#endif /* __ALIGNED_MALLOC_H__ */
