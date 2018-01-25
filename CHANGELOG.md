@@ -1,3 +1,9 @@
+# v2.4.4
+ - Added libmicrohttpd version to --version output.
+ - Fixed bug in singal handler, in some cases miner wasn't shutdown properly.
+ - Fixed recent MSVC 2017 version detection.
+ - [#279](https://github.com/xmrig/xmrig/pull/279) Fixed build on some macOS versions.
+
 # v2.4.3.1
  - Removed `donate-level`.
 
