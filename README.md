@@ -1,4 +1,11 @@
 # XMRig
+[![Github All Releases](https://img.shields.io/github/downloads/xmrig/xmrig/total.svg)](https://github.com/xmrig/xmrig/releases)
+[![GitHub release](https://img.shields.io/github/release/xmrig/xmrig/all.svg)](https://github.com/xmrig/xmrig/releases)
+[![GitHub Release Date](https://img.shields.io/github/release-date-pre/xmrig/xmrig.svg)](https://github.com/xmrig/xmrig/releases)
+[![GitHub license](https://img.shields.io/github/license/xmrig/xmrig.svg)](https://github.com/xmrig/xmrig/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/xmrig/xmrig.svg)](https://github.com/xmrig/xmrig/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/xmrig/xmrig.svg)](https://github.com/xmrig/xmrig/network)
+
 XMRig is a high performance Monero (XMR) CPU miner, with official support for Windows.
 Originally based on cpuminer-multi with heavy optimizations/rewrites and removing a lot of legacy code, since version 1.0.0 completely rewritten from scratch on C++.
 
@@ -37,16 +44,7 @@ Originally based on cpuminer-multi with heavy optimizations/rewrites and removin
   * Clone with `git clone https://github.com/xmrig/xmrig.git` :hammer: [Build instructions](https://github.com/xmrig/xmrig/wiki/Build).
 
 ## Usage
-### Basic example
-```
-xmrig.exe -o pool.monero.hashvault.pro:5555 -u YOUR_WALLET -p x -k
-```
-
-### Failover
-```
-xmrig.exe -o pool.monero.hashvault.pro:5555 -u YOUR_WALLET1 -p x -k -o pool.supportxmr.com:5555 -u YOUR_WALLET2 -p x -k
-```
-For failover you can add multiple pools, maximum count not limited.
+Use [config.xmrig.com](https://config.xmrig.com/xmrig) to generate, edit or share configurations.
 
 ### Options
 ```
