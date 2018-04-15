@@ -129,7 +129,7 @@ void Network::onResultAccepted(IStrategy *strategy, Client *client, const Submit
 }
 
 
-void Network::setJob(Client *client, const Job &job, bool donate)
+void Network::setJob(Client *client, const Job &job)
 {
     if (m_options->colors()) {
         LOG_INFO("\x1B[01;35mnew job\x1B[0m from \x1B[01;37m%s:%d\x1B[0m diff \x1B[01;37m%d", client->host(), client->port(), job.diff());
@@ -139,7 +139,7 @@ void Network::setJob(Client *client, const Job &job, bool donate)
     }
 
     m_state.diff = job.diff();
-    Workers::setJob(job, donate);
+    Workers::setJob(job);
 }
 
 
